@@ -22,6 +22,41 @@ def delimFind(s):
             l.append(char)
     return max(set(l),key=l.count)
 
+#Find name and episode number
+def nameAndEpisodeFinder(s, delim):
+    l=s.split(delim)
+    eCharFound=False
+    eCharValue=False
+    eNumFound=False
+    eNumValue=''
+    for x in l:
+        if str(x).lower().startswith('e') and len(x) <6 and l.index(x) >1:
+            eCharFound=True
+            if len(x)>2 and str(x)[-1].isdigit() and str(x)[-2].isdigit():
+                eNumFound=True
+    #not finished
+
+
+#Find the date in a tv show episode
+def datefinder(s,delim):
+    l=s.split(delim)
+    dateFound=False
+    dateValue=''
+    for x in l:
+        if (len(x)==6) and (str(x).isdigit()):
+            dateFound=True
+            dateValue=x
+        if not dateFound:
+            for char in punctuation:
+                x.strip(char)
+            if (len(x)==6) and (str(x).isdigit()):
+                dateFound=True
+                dateValue=x
+    if dateFound:
+        return dateValue
+    else:
+        return False
+
 #Iterate through all the files in a directory and add them to the list of files if they have an acceptable file extension
 filesinit=os.listdir('.')
 files=[]
@@ -32,7 +67,9 @@ for f in filesinit:
 
 finishedFiles=[]
 
+#This is only for TV shows right now
 for f in files:
+    print f
     delim=delimFind(f)
     #find name
     #find episode number
@@ -42,3 +79,4 @@ for f in files:
     #Add file object to list of finished files
 
 #Add a thing that tries to figure out if it's a tv show or movie buy looking for E## or EP##
+#Add subtitle handler
