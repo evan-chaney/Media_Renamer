@@ -3,7 +3,7 @@
 __author__ = 'Evan Chaney'
 
 import os
-from string import punctuation
+from string import punctuation,letters
 
 class media:
         def __init__(self,name,number,date,fileExt):
@@ -32,9 +32,15 @@ def nameAndEpisodeFinder(s, delim):
     for x in l:
         if str(x).lower().startswith('e') and len(x) <6 and l.index(x) >1:
             eCharFound=True
+            eCharValue=x
             if len(x)>2 and str(x)[-1].isdigit() and str(x)[-2].isdigit():
                 eNumFound=True
-    #not finished
+                eNumValue=x
+    showName=l[:l.index(eCharValue)]
+    if eCharValue==eNumValue:
+        return (showName,eCharValue)
+    else:
+        return (showName,str(eCharValue)+' '+str(eNumValue))
 
 
 #Find the date in a tv show episode
@@ -71,13 +77,18 @@ finishedFiles=[]
 for f in files:
     print f
     delim=delimFind(f)
+    print "delim: "+str(delim)
     #find name
+    showName=nameAndEpisodeFinder(f,delim)[0]
     #find episode number
+    eNumber=nameAndEpisodeFinder(f,delim)[1]
     #find date
+    eDate=datefinder(f,delim)
     #dinf file extension
     fExt=f.lower()[-4:]
     #Add file object to list of finished files
 
+    print showName+' '+eNumber+str(eDate)+fExt
     #This is just for testing purposes
     raw_input("Press enter to continue")
 
