@@ -36,7 +36,10 @@ def nameAndEpisodeFinder(s, delim):
             if len(x)>2 and str(x)[-1].isdigit() and str(x)[-2].isdigit():
                 eNumFound=True
                 eNumValue=x
-    showName=l[:l.index(eCharValue)]
+    showName=''
+    for x in l[:l.index(eCharValue)]:
+        showName+=str(x)+' '
+    showName=showName[:-1]
     if eCharValue==eNumValue:
         return (showName,eCharValue)
     else:
@@ -88,7 +91,7 @@ for f in files:
     fExt=f.lower()[-4:]
     #Add file object to list of finished files
 
-    print showName+' '+eNumber+str(eDate)+fExt
+    print str(showName)+' '+str(eNumber)+str(eDate)+str(fExt)
     #This is just for testing purposes
     raw_input("Press enter to continue")
 
