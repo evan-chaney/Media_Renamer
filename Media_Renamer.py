@@ -96,4 +96,5 @@ for f in files:
     raw_input("Press enter to continue")
 
 #Add a thing that tries to figure out if it's a tv show or movie by looking for E## or EP##
-#Add subtitle handler
+#Change Episode naming so it's EP XX
+
