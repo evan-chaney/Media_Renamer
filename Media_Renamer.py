@@ -91,9 +91,9 @@ for f in files:
     fExt=f.lower()[-4:]
     #Add file object to list of finished files
 
-    print str(showName)+' '+str(eNumber)+str(eDate)+str(fExt)
+    print str(showName)+' '+str(eNumber)+' '+str(eDate)+str(fExt)
     #This is just for testing purposes
     raw_input("Press enter to continue")
 
-#Add a thing that tries to figure out if it's a tv show or movie buy looking for E## or EP##
+#Add a thing that tries to figure out if it's a tv show or movie by looking for E## or EP##
 #Add subtitle handler
