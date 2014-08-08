@@ -60,7 +60,7 @@ def datefinder(s,delim):
 #Iterate through all the files in a directory and add them to the list of files if they have an acceptable file extension
 filesinit=os.listdir('.')
 files=[]
-acceptedTypes=['.mp4','.mkv','.m4v','.avi','.ass','.srt']
+acceptedTypes=['.mp4','.mkv','.m4v','.avi']
 for f in filesinit:
     if f.lower()[-4:] in acceptedTypes:
         files.append(f)
@@ -77,9 +77,6 @@ for f in files:
     #dinf file extension
     fExt=f.lower()[-4:]
     #Add file object to list of finished files
-
-    #This is just for testing purposes
-    raw_input("Press enter to continue")
 
 #Add a thing that tries to figure out if it's a tv show or movie buy looking for E## or EP##
 #Add subtitle handler
