@@ -6,11 +6,12 @@ import os
 from string import punctuation,letters
 
 class media:
-        def __init__(self,name,number,date,fileExt):
+        def __init__(self,name,number,date,fileExt,mediaType):
             self.n=number
             self.name=name
             self.date=date
             self.ext=fileExt
+            self.mediaType=mediaType
 
 #Maybe add different functions for different media types?
 
@@ -100,20 +101,24 @@ for f in files:
     print f
     delim=delimFind(f)
     print "delim: "+str(delim)
+    #Decide media type
+    mediaType=movieortv(f,delim)
     #find name
     showName=nameAndEpisodeFinder(f,delim)[0]
     #find episode number
     eNumber=nameAndEpisodeFinder(f,delim)[1]
     #find date
     eDate=datefinder(f,delim)
-    #dinf file extension
+    #find file extension
     fExt=f.lower()[-4:]
     #Add file object to list of finished files
+    finishedFiles.append(media(showName,eNumber,eDate,fExt,mediaType))
 
-    print str(showName)+' '+str(eNumber)+' '+str(eDate)+str(fExt)
+    print str(showName)+' EP '+str(eNumber)+' '+str(eDate)+str(fExt)
     #This is just for testing purposes
     raw_input("Press enter to continue")
 
-#Add a thing that tries to figure out if it's a tv show or movie by looking for E## or EP##
+
+
 #Change Episode naming so it's EP XX
 
