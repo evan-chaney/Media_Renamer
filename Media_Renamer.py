@@ -22,6 +22,25 @@ def delimFind(s):
             l.append(char)
     return max(set(l),key=l.count)
 
+def movieortv(s, delim):
+    eFound=False
+    yearFound=False
+    for x in s.split(delim):
+        for p in punctuation:
+            x.strip(p)
+        if str(x).isdigit() and len(x)==4:
+            yearFound=True
+        elif (str(x)[0].lower() =='e' or str(x)[:2].lower()=='ep')  and (str(x)[-3:].isdigit() or (len(x)<3)):
+            eFound=True
+    if yearFound and eFound:
+        return "TV"
+    elif eFound:
+        return "TV"
+    elif yearFound:
+        return "Movie"
+    else:
+        return "TV"
+
 #Find name and episode number
 def nameAndEpisodeFinder(s, delim):
     l=s.split(delim)
