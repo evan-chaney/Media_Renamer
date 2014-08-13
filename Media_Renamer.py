@@ -45,16 +45,12 @@ def movieortv(s, delim):
 #Find name and episode number
 def nameAndEpisodeFinder(s, delim):
     l=s.split(delim)
-    eCharFound=False
     eCharValue=False
-    eNumFound=False
     eNumValue=''
     for x in l:
         if str(x).lower().startswith('e') and len(x) <6 and l.index(x) >1:
-            eCharFound=True
             eCharValue=x
             if len(x)>2 and str(x)[-1].isdigit() and str(x)[-2].isdigit():
-                eNumFound=True
                 eNumValue=x
     showName=''
     for x in l[:l.index(eCharValue)]:
@@ -64,6 +60,20 @@ def nameAndEpisodeFinder(s, delim):
         return (showName,eCharValue)
     else:
         return (showName,str(eCharValue)+' '+str(eNumValue))
+
+#Find just the name and year (for movies)
+def nameAndYear(s, delim):
+    l=s.split(delim)
+    yearValue=''
+    movieName=''
+    for x in l:
+        if len(x)==4 and str(x).isdigit():
+            yearValue=str(x)
+    for x in l[:l.index(yearValue)]:
+        movieName=movieName+str(x)+' '
+    movieName=movieName[:-1]
+    return (movieName, yearValue)
+
 
 
 #Find the date in a tv show episode
@@ -96,29 +106,43 @@ for f in filesinit:
 
 finishedFiles=[]
 
-#This is only for TV shows right now
+
+
 for f in files:
     print f
     delim=delimFind(f)
     print "delim: "+str(delim)
     #Decide media type
     mediaType=movieortv(f,delim)
-    #find name
-    showName=nameAndEpisodeFinder(f,delim)[0]
-    #find episode number
-    eNumber=nameAndEpisodeFinder(f,delim)[1]
-    #find date
-    eDate=datefinder(f,delim)
-    #find file extension
-    fExt=f.lower()[-4:]
-    #Add file object to list of finished files
-    finishedFiles.append(media(showName,eNumber,eDate,fExt,mediaType))
 
-    print str(showName)+' EP '+str(eNumber)+' '+str(eDate)+str(fExt)
+    if mediaType=='TV':
+        #find name
+        showName=nameAndEpisodeFinder(f,delim)[0]
+        #find episode number
+        eNumber=nameAndEpisodeFinder(f,delim)[1]
+        #find date
+        eDate=datefinder(f,delim)
+        #find file extension
+        fExt=f.lower()[-4:]
+        #Add file object to list of finished files
+        finishedFiles.append(media(showName,eNumber,eDate,fExt,mediaType))
+
+        print str(showName)+' EP '+str(eNumber)+' '+str(eDate)+str(fExt)
+    else:
+        #find name
+        movieName=nameAndEpisodeFinder(f,delim)[0]
+        #find episode number
+        movieYear=nameAndEpisodeFinder(f,delim)[1]
+        #find file extension
+        fExt=f.lower()[-4:]
+        #Add file object to list of finished files
+        finishedFiles.append(media(showName,eNumber,eDate,fExt,mediaType))
+
+        print str(movieName)+' ['+str(movieYear)+'] '+str(fExt)
     #This is just for testing purposes
     raw_input("Press enter to continue")
 
 
-
+#Add something to skip a file if the delim is a space
 #Change Episode naming so it's EP XX
 
