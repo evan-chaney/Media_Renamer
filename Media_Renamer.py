@@ -57,9 +57,11 @@ def nameAndEpisodeFinder(s, delim):
         showName+=str(x)+' '
     showName=showName[:-1]
     if eCharValue==eNumValue:
-        return (showName,eCharValue)
+        for letter in letters:
+                eNumValue.strip(letter)
+        return (showName,eNumValue)
     else:
-        return (showName,str(eCharValue)+' '+str(eNumValue))
+        return (showName,str(eNumValue))
 
 #Find just the name and year (for movies)
 def nameAndYear(s, delim):
@@ -114,7 +116,7 @@ for f in files:
     print "delim: "+str(delim)
     #Decide media type
     mediaType=movieortv(f,delim)
-
+    print mediaType
     if mediaType=='TV':
         #find name
         showName=nameAndEpisodeFinder(f,delim)[0]
@@ -136,7 +138,7 @@ for f in files:
         #find file extension
         fExt=f.lower()[-4:]
         #Add file object to list of finished files
-        finishedFiles.append(media(showName,eNumber,eDate,fExt,mediaType))
+        finishedFiles.append(media(movieName,'',movieYear,fExt,mediaType))
 
         print str(movieName)+' ['+str(movieYear)+'] '+str(fExt)
     #This is just for testing purposes
